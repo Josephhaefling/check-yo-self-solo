@@ -3,18 +3,21 @@ class ToDo {
     this.id = id;
     this.title = '';
     this.urgent = false;
-    this.tasks = []''
+    this.tasks = [];
   }
   saveToStorage() {
-
+    if (this.tasks.length)
+    var stringifyToDo = JSON.stringify(this.tasks);
+    localStorage.setItem('tasks', newToDo);
   }
-  deleteFromStorage() {
-
+  deleteFromStorage(deletedTask) {
+    localStorage.getItem('tasks');
+    var unstringToDo = JSON.parse('tasks');
   }
   updateStorage() {
 
   }
-  updateTask() {
-
+  updateTask(newTask) {
+    this.tasks.push(newTask);
   }
 }
