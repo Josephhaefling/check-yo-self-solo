@@ -9,10 +9,10 @@
   </head>
   <body>
     <header>
-      <h1>Check <span>yo</span>' Self</h1>
+      <h1>Check <span id="yo">yo</span>' Self</h1>
       <div class="search-button-container">
           <input type="search" name="" value="" id="search-input" placeholder="search">
-          <input type="submit" name="" value="" id="search-button">
+          <image type="submit" name="" value="" id="search-button" src="assets/search.svg">
       </div>
     </header>
     <main>
@@ -22,7 +22,10 @@
           <input type="text" name="task-title" value="task-title" class = "nav-input">
           <h3>Task Item</h3>
           <input type="text" name="task-item" value="task-item" class = "nav-input">
-          <input type="submit" name="" value="" id="add-button">
+          <div id="add-button">
+            <span id="add-btn-img">+</span>
+          </div>
+            <!-- <input type="submit" name="" value=""> -->
           <button type="button" name="make-list" class = "nav-btn">Make Task List</button>
           <button type="button" name="clear-all" class = "nav-btn">Clear All</button>
         </div>
@@ -30,17 +33,33 @@
           <button type="button" name="urgency-filter-btn" class = "nav-btn">Filter by Urgency</button>
         </div>
       </nav>
-        <section id="practice-card">
-          <header class="task-list">Task Title</header>
-          <div>
-            <input type="radio" name="" value="">Create Check Yo Self<br>
-          </div>
-          <footer>
-            <button type="button" name="button"></button>
-            <button type="button" name="button"></button>
-          </footer>
-        </section>
+      <section id="right-section">
+          <section id="practice-card">
+            <header class="task-list-header">
+              <h2>Task Title</h2>
+            </header>
+            <div id="card-to-dos">
+                <image class="toDo-check-box" src="assets/checkbox.svg">
+                <span>Pass mod1</span>
+                <image class="toDo-check-box" src="assets/checkbox.svg">
+                <span>Move on to mod2</span>
+                <image class="toDo-check-box" src="assets/checkbox.svg">
+                <span>Graduate from Turing</span>
+                <image class="toDo-check-box" src="assets/checkbox.svg">
+                <span>Get a job</span>
+            </div>
+            <footer>
+              <div id="card-btn-container">
+                <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
+                <span class="">urgent</span>
+              </div>
+              <div id="card-btn-container">
+                <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
+                <span>delete</span>
+              </div>
+            </footer>
+          </section>
+      </section>
     </main>
-
   </body>
 </html>
