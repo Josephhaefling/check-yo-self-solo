@@ -1,11 +1,9 @@
 body {
-  border: solid 1px green;
   height: 100vh;
   font-family: 'Open Sans';
 }
 
 header {
-  border: solid 1px red;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +18,7 @@ h1 {
   font-size: 250%;
 }
 
-span {
+#yo {
   font-family: 'Open Sans';
   font-weight: 800;
   text-transform: uppercase;
@@ -37,7 +35,7 @@ span {
   font-size: 100%;
   height: 100%;
   border-radius: 2px;
-  padding-left: 50px;
+  padding-left: 70px;
   border: none;
 }
 
@@ -48,6 +46,7 @@ span {
   width: 17%;
   border-radius: 2px;
   top: -100%;
+  cursor: pointer;
 }
 
 nav {
@@ -63,7 +62,6 @@ nav {
 }
 
 #nav-top {
-  border: solid 1px magenta;
   height: 40%;
   width: 90%;
   display: flex;
@@ -88,11 +86,25 @@ h3{
 #add-button {
   position: relative;
   bottom: 16%;
-  left: 79%;
+  left: 80%;
   height: 13%;
   width: 20%;
   background-color: #1f1f3d;
   border: 0;
+  font-size: 100%;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#add-btn-img {
+  height: 180%;
+  font-weight: normal;
+  width: 73%;
+  font-size: 300%;
 }
 
 .nav-btn {
@@ -102,10 +114,10 @@ h3{
   background-color: #1f1f3d;
   color: #ffffff;
   border-color: #1f1f3d;
+  cursor: pointer;
 }
 
 #nav-bottom {
-  border: solid 1px grey;
   height: 40%;
   display: flex;
   flex-direction: column;
@@ -118,6 +130,72 @@ main {
   height: 90%;
 }
 
-#practice-card{
+#right-section {
+  width: 75%;
+  background-color: #f3f6f7;
+}
+
+#practice-card {
   height: 35%;
+  width: 45%;
+  background-color: #ffffff;
+  border: 2px solid #c7d3d8;
+}
+
+.task-list-header {
+  background-color: #ffffff;
+  border-bottom: 2px solid #c7d3d8;
+  height: 12%;
+  display: flex;
+  justify-content: center;
+}
+
+h2 {
+  font-size: 100%;
+  margin: 0;
+  height: 70%;
+  width: 100%;
+  color: #1f1f3d;
+  justify-content: center;
+}
+
+#card-to-dos{
+  height:60%;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+span {
+  width: 90%;
+  height: 15%;
+}
+
+.toDo-check-box {
+  height: 20%;
+  width: 10%;
+  cursor: pointer;
+}
+
+footer {
+  border-top: 2px solid #c7d3d8;
+  height: 20%;
+  display: flex;
+  align-items: column;
+  align-content: center;
+  justify-content: space-between;
+}
+
+#card-btn-container {
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+height: 100%;
+cursor: pointer;
+}
+
+.card-btn {
+  height: 60%;
+  width: 50%;
 }
