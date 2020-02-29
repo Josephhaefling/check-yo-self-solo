@@ -1,9 +1,9 @@
 class ToDo {
-  constructor(id) {
-    this.id = id;
+  constructor(title, taskList) {
+    this.id = '';
     this.title = title;
     this.urgent = false;
-    this.tasks = [];
+    this.tasks = taskList;
   }
   saveToStorage() {
     if (this.tasks.length)
@@ -20,4 +20,8 @@ class ToDo {
   updateTask(newTask) {
     this.tasks.push(newTask);
   }
+  createToDoId() {
+    var id = new Date().getTime();
+    this.id = id;
+  };
 }

@@ -69,7 +69,7 @@ nav {
   justify-content: space-around;
 }
 
-#small-image {
+.small-image {
   height: 15px;
   width:15px;
   cursor: pointer;
@@ -146,6 +146,7 @@ main {
   width: 45%;
   background-color: #ffffff;
   border: 2px solid #c7d3d8;
+  display: none;
 }
 
 .task-list-header {

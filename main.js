@@ -1,5 +1,6 @@
 var navListener = document.querySelector('#nav-listener');
 var mainHeader = document.querySelector('#js-main-header');
+var taskList = [];
 
 
 navListener.addEventListener('click', btnClicked);
@@ -16,35 +17,53 @@ function btnClicked () {
 
 function determineBtn(target) {
   if (target.id === 'add-btn') {
-    addTask()
+    createTaskObj();
   } else if (target.id === 'make-list') {
-    console.log('make');
+    createNewToDoList();
   } else if (target.id === 'clear-all') {
     console.log('clear');
-  } else if (target.id === 'small-image') {
-    deleteElement(target);
+  } else if (target.classList[1] === 'small-image') {
+    deleteTask(target);
   }
 }
 
-function addTask() {
-  var newTaskSpace = document.querySelector('#new-task-space');
+function createTaskObj() {
   var newTask = document.querySelector('#task-item-input');
   var task = new Task(newTask.value);
-  console.log(task);
-  if (newTask.value) {
-    newTaskSpace.insertAdjacentHTML('afterbegin', `<div id="newID"> <img class="js-nav-btn" id="small-image" src="assets/delete.svg">${newTask.value}</div>`);
+  task.createTaskId();
+  addTask(task, newTask);
+  taskList.push(task);
+}
+
+function addTask(taskObj, newTask) {
+  var newTaskSpace = document.querySelector('#new-task-space');
+  if (taskObj.taskName) {
+    newTaskSpace.insertAdjacentHTML('afterbegin', `<div class="new-task" id="js-${taskObj.uniqueID}"> <img class="js-nav-btn small-image" id="js-${taskObj.uniqueID}" src="assets/delete.svg">${taskObj.taskName}</div>`);
+    newTask.value = '';
   }
 }
 
-function deleteElement(target) {
-  var parent = document.querySelector("#newID");
-  console.log(parent);
+function deleteTask(target) {
+  var parent = document.querySelector(`#${target.id}`);
   target.remove();
   parent.remove();
 }
-//Give tasks a unique ID somehow
-//create global variable of task objects
-//Onlick of Make Task List create an instance of the TODO list
-//Give TODO a unique ID some how
-//.push() the global variable into the new instance of ToDO
-//Clear the global va
+
+function createNewToDoList() {
+  var toDoTitle = document.querySelector('#new-task-input');
+  var todo = new ToDo(toDoTitle.value, taskList);
+  todo.createToDoId();
+  clearTasks();
+  displayToDo(todo);
+}
+
+function clearTasks() {
+  var newTaskSpace = document.querySelector('#new-task-space');
+  newTaskSpace.querySelectorAll('.new-task').forEach(task => task.remove());
+  taskList = [];
+}
+
+function displayToDo(newList) {
+  var rightSection = document.querySelector('#right-section');
+  rightSection.insertAdjacentHTML('afterbegin', '<div id="#practice-card"`>poop</div>');
+}
