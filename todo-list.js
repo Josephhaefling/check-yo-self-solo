@@ -1,20 +1,27 @@
 class ToDo {
-  constructor(id) {
-    this.id = id;
-    this.title = '';
+  constructor(title, taskList) {
+    this.id = '';
+    this.title = title;
     this.urgent = false;
-    this.tasks = []''
+    this.tasks = taskList;
   }
   saveToStorage() {
-
+    if (this.tasks.length)
+    var stringifyToDo = JSON.stringify(this.tasks);
+    localStorage.setItem('tasks', newToDo);
   }
-  deleteFromStorage() {
-
+  deleteFromStorage(deletedTask) {
+    localStorage.getItem('tasks');
+    var unstringToDo = JSON.parse('tasks');
   }
   updateStorage() {
 
   }
-  updateTask() {
-
+  updateTask(newTask) {
+    this.tasks.push(newTask);
   }
+  createToDoId() {
+    var id = new Date().getTime();
+    this.id = id;
+  };
 }

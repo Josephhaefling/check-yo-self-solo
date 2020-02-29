@@ -69,6 +69,12 @@ nav {
   justify-content: space-around;
 }
 
+.small-image {
+  height: 15px;
+  width:15px;
+  cursor: pointer;
+}
+
 h3{
   color: #c7d3d8;
   font-size: 100%;
@@ -100,7 +106,7 @@ h3{
   cursor: pointer;
 }
 
-#add-btn-img {
+#add-btn {
   height: 180%;
   font-weight: normal;
   width: 73%;
@@ -140,6 +146,7 @@ main {
   width: 45%;
   background-color: #ffffff;
   border: 2px solid #c7d3d8;
+  display: none;
 }
 
 .task-list-header {

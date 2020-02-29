@@ -8,7 +8,7 @@
     <title>Check Yo' Self</title>
   </head>
   <body>
-    <header>
+    <header id="js-main-header">
       <h1>Check <span id="yo">yo</span>' Self</h1>
       <div class="search-button-container">
           <input type="search" name="" value="" id="search-input" placeholder="search">
@@ -16,25 +16,25 @@
       </div>
     </header>
     <main>
-      <nav>
+      <nav id="nav-listener">
         <div id="nav-top">
           <h3>Task Title</h3>
-          <input type="text" name="task-title" value="task-title" class = "nav-input">
+          <input type="text" placeholder="task-title" name="task-title" class="nav-input" id="new-task-input">
+          <div id="new-task-space"></div>
           <h3>Task Item</h3>
-          <input type="text" name="task-item" value="task-item" class = "nav-input">
+          <input type="text" placeholder="task-item "name="task-item" class="nav-input" id="task-item-input">
           <div id="add-button">
-            <span id="add-btn-img">+</span>
+            <span class="js-nav-btn" id="add-btn">+</span>
           </div>
-            <!-- <input type="submit" name="" value=""> -->
-          <button type="button" name="make-list" class = "nav-btn">Make Task List</button>
-          <button type="button" name="clear-all" class = "nav-btn">Clear All</button>
+          <button type="button" name="make-list" class = "js-nav-btn nav-btn" id="make-list">Make Task List</button>
+          <button type="button" name="clear-all" class = "js-nav-btn nav-btn" id="clear-all">Clear All</button>
         </div>
         <div id="nav-bottom">
-          <button type="button" name="urgency-filter-btn" class = "nav-btn">Filter by Urgency</button>
+          <button type="button" name="urgency-filter-btn" class = "js-nav-btn nav-btn" id="ugency-filter">Filter by Urgency</button>
         </div>
       </nav>
       <section id="right-section">
-          <section id="practice-card">
+          <!-- <section id="practice-card">
             <header class="task-list-header">
               <h2>Task Title</h2>
             </header>
@@ -58,8 +58,11 @@
                 <span>delete</span>
               </div>
             </footer>
-          </section>
+          </section> -->
       </section>
     </main>
+    <script src="main.js"></script>
+    <script src="task.js"></script>
+    <script src="todo-list.js"></script>
   </body>
 </html>
