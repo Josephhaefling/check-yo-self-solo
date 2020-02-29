@@ -1,7 +1,7 @@
 class ToDo {
   constructor(id) {
     this.id = id;
-    this.title = '';
+    this.title = title;
     this.urgent = false;
     this.tasks = [];
   }
