@@ -69,6 +69,11 @@ nav {
   justify-content: space-around;
 }
 
+#small-image {
+  height: 15px;
+  width:15px;
+}
+
 h3{
   color: #c7d3d8;
   font-size: 100%;
@@ -100,7 +105,7 @@ h3{
   cursor: pointer;
 }
 
-#add-btn-img {
+#add-btn {
   height: 180%;
   font-weight: normal;
   width: 73%;
