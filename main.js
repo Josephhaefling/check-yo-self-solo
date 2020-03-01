@@ -63,7 +63,38 @@ function clearTasks() {
   taskList = [];
 }
 
+function clearToDoInput() {
+  var toDoInput = document.querySelector('#new-task-input');
+  console.log(toDoInput.value);
+  toDoInput.value = '';
+}
+
 function displayToDo(newList) {
   var rightSection = document.querySelector('#right-section');
-  rightSection.insertAdjacentHTML('afterbegin', '<div id="#practice-card"`>poop</div>');
+  rightSection.insertAdjacentHTML('beforeend',
+  `<div id="new-card">
+  <h2>${newList.title}</h2>
+  <div id="js-${newList.id}" class="card-tasks"></div>
+  <div id="footer">
+    <div class="card-btn-container">
+      <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
+      <span class="card-btn-label">urgent</span>
+    </div>
+    <div class="card-btn-container">
+      <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
+      <span class="card-btn-label">delete</span>
+    </div>
+  </div>`);
+  addTasksToCard(newList);
+  clearToDoInput();
+}
+
+function addTasksToCard (newList) {
+  var listOfTasks = document.querySelector(`#js-${newList.id}`);
+  console.log(newList.id);
+  for (var i = 0; i < newList.tasks.length; i++) {
+    listOfTasks.insertAdjacentHTML('beforeend',
+  `<image class="toDo-check-box" src="assets/checkbox.svg">
+    <span>${newList.tasks[i].taskName}</span>`);
+  }
 }

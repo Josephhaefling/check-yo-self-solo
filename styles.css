@@ -141,36 +141,26 @@ main {
   background-color: #f3f6f7;
 }
 
-#practice-card {
+#new-card {
   height: 35%;
   width: 45%;
   background-color: #ffffff;
   border: 2px solid #c7d3d8;
-  display: none;
 }
 
-.task-list-header {
+h2  {
   background-color: #ffffff;
   border-bottom: 2px solid #c7d3d8;
   height: 12%;
-  display: flex;
-  justify-content: center;
-}
-
-h2 {
+  width: auto;
   font-size: 100%;
-  margin: 0;
-  height: 70%;
-  width: 100%;
   color: #1f1f3d;
-  justify-content: center;
 }
 
-#card-to-dos{
-  height:60%;
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+.card-tasks{
+  height: 50%;
+  width: auto;
+  background-color: #ffffff;
 }
 
 span {
@@ -179,30 +169,27 @@ span {
 }
 
 .toDo-check-box {
-  height: 20%;
+  height: 10%;
   width: 10%;
   cursor: pointer;
 }
 
-footer {
+#footer {
   border-top: 2px solid #c7d3d8;
-  height: 20%;
-  display: flex;
-  align-items: column;
-  align-content: center;
-  justify-content: space-between;
-}
-
-#card-btn-container {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-height: 100%;
-cursor: pointer;
+  margin-top: auto;
 }
 
 .card-btn {
-  height: 60%;
-  width: 50%;
+  height: 10%;
+  width: 10%
+}
+
+.card-btn-container {
+  width: 49%;
+  display: inline-block;
+  text-align: center;
+}
+
+.card-btn-label {
+  display: block;
 }
