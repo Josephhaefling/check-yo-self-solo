@@ -1,5 +1,6 @@
 var navListener = document.querySelector('#nav-listener');
 var mainHeader = document.querySelector('#js-main-header');
+var rightSection = document.querySelector('#right-section');
 var toDoListInput = document.querySelector('#new-todo-input');
 var taskSpace = document.querySelector('#new-task-space');
 var taskList = [];
@@ -7,6 +8,7 @@ var taskList = [];
 
 navListener.addEventListener('click', btnClicked);
 mainHeader.addEventListener('click', btnClicked);
+rightSection.addEventListener('click', btnClicked);
 
 window.onload = function() {
   retrieveSavedCards();
@@ -14,10 +16,12 @@ window.onload = function() {
 
 function btnClicked () {
   var target = event.target;
-  if (target.classList[0] ==='js-nav-btn') {
+  if (target.classList[0] === 'js-nav-btn') {
     addBtn(target);
-  } else if (target.id ==='search-button'){
+  } else if (target.id === 'search-button'){
     console.log('search');
+  } else if (target.classList.value === 'toDo-check-box') {
+    determineTask(target);
   }
 }
 
@@ -57,6 +61,13 @@ function deleteBtns(target) {
   } else if (target.classList[1] === 'small-image') {
     deleteTask(target);
   }
+}
+
+function determineTask(target) {
+  var parentElement = document.querySelector(`#${target.parentNode.childNodes[2].id}`);
+  target.src = 'assets/checkbox-active.svg';
+  parentElement.classList = 'card-tasks-active';
+  console.log(parentElement.classList);
 }
 
 function createTaskObj() {
@@ -138,7 +149,7 @@ function addTasksToCard (newList) {
   for (var i = 0; i < newList.tasks.length; i++) {
     listOfTasks.insertAdjacentHTML('beforeend',
   `<image class="toDo-check-box" src="assets/checkbox.svg">
-    <span>${newList.tasks[i].taskName}</span>`);
+    <span id="js-${newList.id}">${newList.tasks[i].taskName}</span>`);
   }
 }
 

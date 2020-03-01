@@ -163,6 +163,12 @@ h2  {
   background-color: #ffffff;
 }
 
+.card-tasks-active {
+  height: 50%;
+  width: auto;
+  background-color: #ffffff;
+  color: #3c6577;
+}
 span {
   width: 90%;
   height: 15%;
