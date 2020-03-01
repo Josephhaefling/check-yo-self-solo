@@ -7,25 +7,52 @@ var taskList = [];
 
 navListener.addEventListener('click', btnClicked);
 mainHeader.addEventListener('click', btnClicked);
-// toDoListInput.addEventListener('click', disableBtn);
-// toDoListInput.addEventListener('click', disableBtn);
+
+window.onload = function() {
+  retrieveSavedCards();
+};
 
 function btnClicked () {
   var target = event.target;
   if (target.classList[0] ==='js-nav-btn') {
-    determineBtn(target);
+    addBtn(target);
   } else if (target.id ==='search-button'){
     console.log('search');
   }
 }
 
-function determineBtn(target) {
+// function determineBtn(target) {
+//   if (target.id === 'add-btn') {
+//     createTaskObj();
+//     disableBtn();
+//   } else if (target.id === 'make-list') {
+//     createNewToDoList();
+//   } else if (target.id === 'clear-all') {
+//     console.log('clear');
+//   } else if (target.classList[1] === 'small-image') {
+//     deleteTask(target);
+//   }
+// }
+
+function addBtn(target) {
   if (target.id === 'add-btn') {
     createTaskObj();
     disableBtn();
-  } else if (target.id === 'make-list') {
+  } else {
+    makeListBtn(target);
+  }
+}
+
+function makeListBtn(target) {
+  if (target.id === 'make-list') {
     createNewToDoList();
-  } else if (target.id === 'clear-all') {
+  } else {
+    deleteBtns(target);
+  }
+}
+
+function deleteBtns(target) {
+  if (target.id === 'clear-all') {
     console.log('clear');
   } else if (target.classList[1] === 'small-image') {
     deleteTask(target);
@@ -35,9 +62,11 @@ function determineBtn(target) {
 function createTaskObj() {
   var newTaskInput = document.querySelector('#task-item-input');
   var task = new Task(newTaskInput.value);
-  task.createTaskId();
-  addTask(task, newTaskInput);
-  taskList.push(task);
+  if (newTaskInput.value){
+    task.createTaskId();
+    addTask(task, newTaskInput);
+    taskList.push(task);
+  }
 }
 
 function addTask(taskObj, newTaskInput) {
@@ -57,9 +86,11 @@ function deleteTask(target) {
 function disableBtn() {
   var makeListBtn = document.querySelector('#make-list');
   var newTaskSpace  = document.querySelector('#new-task-space');
-  var newTask = document.querySelector('.new-task')
+  var newTask = document.querySelector('.new-task');
+  var clearAllBtn = document.querySelector('#clear-all');
   if (toDoListInput.value && newTaskSpace.childNodes[0].classList.value === 'new-task') {
     makeListBtn.disabled = false;
+    clearAllBtn.disabled = false;
   }
 }
 
@@ -68,6 +99,7 @@ function createNewToDoList() {
   todo.createToDoId();
   clearTasks();
   displayToDo(todo);
+  todo.saveToStorage();
 }
 
 function clearTasks() {
@@ -108,6 +140,12 @@ function addTasksToCard (newList) {
   `<image class="toDo-check-box" src="assets/checkbox.svg">
     <span>${newList.tasks[i].taskName}</span>`);
   }
+}
+
+function retrieveSavedCards () {
+  var unstringTasks = localStorage.getItem('tasks');
+  var unstringToDo = JSON.parse(unstringTasks);
+  displayToDo(unstringToDo);
 }
 
 // function determineBtn(target) {

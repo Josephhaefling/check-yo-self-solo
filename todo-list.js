@@ -6,10 +6,11 @@ class ToDo {
     this.tasks = taskList;
   }
   saveToStorage() {
-    if (this.tasks.length)
-    var stringifyToDo = JSON.stringify(this.tasks);
-    localStorage.setItem('tasks', newToDo);
+    var stringifyToDo = JSON.stringify(this);
+    console.log(stringifyToDo);
+    localStorage.setItem('tasks', stringifyToDo);
   }
+
   deleteFromStorage(deletedTask) {
     localStorage.getItem('tasks');
     var unstringToDo = JSON.parse('tasks');
