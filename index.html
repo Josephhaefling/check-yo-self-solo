@@ -19,47 +19,38 @@
       <nav id="nav-listener">
         <div id="nav-top">
           <h3>Task Title</h3>
-          <input type="text" placeholder="task-title" name="task-title" class="nav-input" id="new-task-input">
+          <input type="text" placeholder="task-title" name="task-title" class="nav-input" id="new-todo-input">
           <div id="new-task-space"></div>
           <h3>Task Item</h3>
           <input type="text" placeholder="task-item "name="task-item" class="nav-input" id="task-item-input">
           <div id="add-button">
-            <span class="js-nav-btn" id="add-btn">+</span>
+            <span class="js-nav-btn nav-btn" id="add-btn">+</span>
           </div>
-          <button type="button" name="make-list" class = "js-nav-btn nav-btn" id="make-list">Make Task List</button>
-          <button type="button" name="clear-all" class = "js-nav-btn nav-btn" id="clear-all">Clear All</button>
+          <button type="button" name="make-list" class = "js-nav-btn nav-btn" id="make-list" disabled="true">Make Task List</button>
+          <button type="button" name="clear-all" class = "js-nav-btn nav-btn" id="clear-all" disabled="true">Clear All</button>
         </div>
         <div id="nav-bottom">
           <button type="button" name="urgency-filter-btn" class = "js-nav-btn nav-btn" id="ugency-filter">Filter by Urgency</button>
         </div>
       </nav>
       <section id="right-section">
-          <!-- <section id="practice-card">
-            <header class="task-list-header">
-              <h2>Task Title</h2>
-            </header>
-            <div id="card-to-dos">
-                <image class="toDo-check-box" src="assets/checkbox.svg">
-                <span>Pass mod1</span>
-                <image class="toDo-check-box" src="assets/checkbox.svg">
-                <span>Move on to mod2</span>
-                <image class="toDo-check-box" src="assets/checkbox.svg">
-                <span>Graduate from Turing</span>
-                <image class="toDo-check-box" src="assets/checkbox.svg">
-                <span>Get a job</span>
+          <!-- <div id="new-card">
+          <h2>${newList.title}</h2>
+          <div id="card-tasks">
+            <image class="toDo-check-box" src="assets/checkbox.svg">
+            <span>${todo.tasks[i].taskName}</span>
+          </div>
+          <div id="footer">
+            <div class="card-btn-container">
+              <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
+              <span class="card-btn-label">urgent</span>
             </div>
-            <footer>
-              <div id="card-btn-container">
-                <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
-                <span class="">urgent</span>
-              </div>
-              <div id="card-btn-container">
-                <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
-                <span>delete</span>
-              </div>
-            </footer>
-          </section> -->
-      </section>
+            <div class="card-btn-container">
+              <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
+              <span class="card-btn-label">delete</span>
+            </div>
+          </div> -->
+      <!-- </section> -->
     </main>
     <script src="main.js"></script>
     <script src="task.js"></script>
