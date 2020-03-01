@@ -1,10 +1,14 @@
 var navListener = document.querySelector('#nav-listener');
 var mainHeader = document.querySelector('#js-main-header');
+var toDoListInput = document.querySelector('#new-todo-input');
+var taskSpace = document.querySelector('#new-task-space');
 var taskList = [];
 
 
 navListener.addEventListener('click', btnClicked);
 mainHeader.addEventListener('click', btnClicked);
+// toDoListInput.addEventListener('click', disableBtn);
+// toDoListInput.addEventListener('click', disableBtn);
 
 function btnClicked () {
   var target = event.target;
@@ -18,6 +22,7 @@ function btnClicked () {
 function determineBtn(target) {
   if (target.id === 'add-btn') {
     createTaskObj();
+    disableBtn();
   } else if (target.id === 'make-list') {
     createNewToDoList();
   } else if (target.id === 'clear-all') {
@@ -28,18 +33,18 @@ function determineBtn(target) {
 }
 
 function createTaskObj() {
-  var newTask = document.querySelector('#task-item-input');
-  var task = new Task(newTask.value);
+  var newTaskInput = document.querySelector('#task-item-input');
+  var task = new Task(newTaskInput.value);
   task.createTaskId();
-  addTask(task, newTask);
+  addTask(task, newTaskInput);
   taskList.push(task);
 }
 
-function addTask(taskObj, newTask) {
+function addTask(taskObj, newTaskInput) {
   var newTaskSpace = document.querySelector('#new-task-space');
   if (taskObj.taskName) {
-    newTaskSpace.insertAdjacentHTML('afterbegin', `<div class="new-task" id="js-${taskObj.uniqueID}"> <img class="js-nav-btn small-image" id="js-${taskObj.uniqueID}" src="assets/delete.svg">${taskObj.taskName}</div>`);
-    newTask.value = '';
+    newTaskSpace.insertAdjacentHTML('beforeend', `<div class="new-task" id="js-${taskObj.uniqueID}"> <img class="js-nav-btn small-image" id="js-${taskObj.uniqueID}" src="assets/delete.svg">${taskObj.taskName}</div>`);
+    newTaskInput.value = '';
   }
 }
 
@@ -49,9 +54,17 @@ function deleteTask(target) {
   parent.remove();
 }
 
+function disableBtn() {
+  var makeListBtn = document.querySelector('#make-list');
+  var newTaskSpace  = document.querySelector('#new-task-space');
+  var newTask = document.querySelector('.new-task')
+  if (toDoListInput.value && newTaskSpace.childNodes[0].classList.value === 'new-task') {
+    makeListBtn.disabled = false;
+  }
+}
+
 function createNewToDoList() {
-  var toDoTitle = document.querySelector('#new-task-input');
-  var todo = new ToDo(toDoTitle.value, taskList);
+  var todo = new ToDo(toDoListInput.value, taskList);
   todo.createToDoId();
   clearTasks();
   displayToDo(todo);
@@ -64,8 +77,7 @@ function clearTasks() {
 }
 
 function clearToDoInput() {
-  var toDoInput = document.querySelector('#new-task-input');
-  console.log(toDoInput.value);
+  var toDoInput = document.querySelector('#new-todo-input');
   toDoInput.value = '';
 }
 
@@ -91,10 +103,19 @@ function displayToDo(newList) {
 
 function addTasksToCard (newList) {
   var listOfTasks = document.querySelector(`#js-${newList.id}`);
-  console.log(newList.id);
   for (var i = 0; i < newList.tasks.length; i++) {
     listOfTasks.insertAdjacentHTML('beforeend',
   `<image class="toDo-check-box" src="assets/checkbox.svg">
     <span>${newList.tasks[i].taskName}</span>`);
   }
 }
+
+// function determineBtn(target) {
+//   var btnList = ['createNewToDoList', 'createTask', 'clearAll'];
+//   for (i = 0; i < btnList.length; i++){
+//     if (target.id === btnList[i]) {
+//       console.log(`${btnList[i]}`);
+//       `${btnList[i]}()`;
+//     }
+//   }
+// }
