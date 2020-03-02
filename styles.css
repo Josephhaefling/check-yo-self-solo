@@ -163,12 +163,32 @@ h2  {
   background-color: #ffffff;
 }
 
+.card-tasks-active {
+  height: 50%;
+  width: auto;
+  background-color: #ffffff;
+  color: #3c6577;
+}
+.change-text {
+  width: 90%;
+  height: 15%;
+  color: black;
+  
+}
+
 span {
   width: 90%;
   height: 15%;
+  color: #3c6577;
 }
 
 .toDo-check-box {
+  height: 10%;
+  width: 10%;
+  cursor: pointer;
+}
+
+.toDo-check-box-active {
   height: 10%;
   width: 10%;
   cursor: pointer;
