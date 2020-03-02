@@ -1,13 +1,13 @@
 class ToDo {
-  constructor(title, taskList) {
-    this.id = '';
+  constructor(title, taskList, uniqueId) {
     this.title = title;
-    this.urgent = false;
     this.tasks = taskList;
+    this.uniqueId = uniqueId;
+    this.urgent = false;
   }
-  saveToStorage() {
-    var stringifyToDo = JSON.stringify(this);
-    console.log(stringifyToDo);
+  saveToStorage(allToDos) {
+    console.log(allToDos)
+    var stringifyToDo = JSON.stringify(allToDos);
     localStorage.setItem('tasks', stringifyToDo);
   }
 
