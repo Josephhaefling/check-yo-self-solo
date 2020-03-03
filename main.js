@@ -22,7 +22,7 @@ function btnClicked () {
   } else if (target.id === 'search-button'){
     console.log('search');
   } else if (target.classList.value === 'toDo-check-box') {
-    toggleCompleted(target);
+    getTaskIDs(target);
   }
 }
 
@@ -64,19 +64,35 @@ function deleteBtns(target) {
   }
 }
 
-function toggleCompleted(target) {
-  console.log(target);
+function getTaskIDs(target) {
+  var taskList = allToDos.map(x => x.tasks);
+  var uniqueIDList = taskList.map(y => y[0].uniqueID);
+  for (var i = 0; i < uniqueIDList.length; i++){
+    if (target.id === `js-${uniqueIDList[i]}`) {
+      var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
+      taskList[i][indexOfTask].complete = true;
+      toggleCompleted(target, taskList[i][indexOfTask]);
+    }
+  }
+}
+
+function toggleCompleted(target, taskList) {
   var targetClass = document.querySelector('.toDo-check-box');
   var text = target.nextSibling;
-  var textNextSibling = text.nextSibling
-  if (target.getAttribute('src') === 'assets/checkbox.svg') {
+  var textNextSibling = text.nextSibling;
+  if (target.complete === true && target.getAttribute('src') === 'assets/checkbox.svg') {
     target.src = 'assets/checkbox-active.svg';
     textNextSibling.classList.toggle('change-text');
-    Task.complete = true;
   } else {
     textNextSibling.classList.toggle('change-text');
     target.src = 'assets/checkbox.svg';
+    console.log(taskList.complete);
+    taskList.complete = false;
+    console.log(taskList.complete);
   }
+    var updatedToDo = new ToDo(taskList.title, taskList.taskList, taskList.uniqueID);
+    console.log(allToDos);
+    updatedToDo.updateStorage(allToDos);
 }
 
 function createTaskObj() {
@@ -116,7 +132,7 @@ function disableBtn() {
 
 function createNewToDoList() {
   var todo = new ToDo(toDoListInput.value, taskList, Date.now());
-  // todo.createToDoId();
+  todo.createToDoId();
   clearTasks();
   displayToDo(todo);
   allToDos.push(todo);
@@ -136,10 +152,11 @@ function clearToDoInput() {
 
 function displayToDo(newList) {
   var rightSection = document.querySelector('#right-section');
-  rightSection.insertAdjacentHTML('beforeend',
+  for (var i = 0; i < newList.tasks.length; i++) {
+   rightSection.insertAdjacentHTML('beforeend',
   `<div id="new-card">
-  <h2>${newList.title}</h2>
-  <div id="js-${newList.id}" class="card-tasks"></div>
+  <h2>${newList.tasks[i].taskName}</h2>
+  <div id="js-${newList.tasks[i].uniqueID}" class="card-tasks"></div>
   <div id="footer">
     <div class="card-btn-container">
       <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
@@ -150,19 +167,20 @@ function displayToDo(newList) {
       <span class="card-btn-label">delete</span>
     </div>
   </div>`);
-  addTasksToCard(newList);
+  addTasksToCard(newList.tasks[i]);
   clearToDoInput();
-  // determineTask(newList);
+  }
 }
 
 function addTasksToCard (newList) {
-  var listOfTasks = document.querySelector(`#js-${newList.id}`);
-  for (var i = 0; i < newList.tasks.length; i++) {
+  var listOfTasks = document.querySelector(`#js-${newList.uniqueID}`);
+  // console.log(newList);
+  // for (var i = 0; i < newList.tasks.length; i++) {
     listOfTasks.insertAdjacentHTML('beforeend',
-  `<image id="js-${newList.tasks[i].uniqueID}" class="toDo-check-box" src="assets/checkbox.svg">
-    <span id="js-${newList.tasks[i].uniqueID}" class="change-text">${newList.tasks[i].taskName}</span>`);
+  `<image id="js-${newList.uniqueID}" class="toDo-check-box" src="assets/checkbox.svg">
+    <span id="js-${newList.uniqueID}" class="change-text">${newList.taskName}</span>`);
   }
-}
+// }
 
 function retrieveSavedCards () {
   var unstringTasks = localStorage.getItem('tasks');
@@ -171,7 +189,7 @@ function retrieveSavedCards () {
     return;
   }
   for(var i = 0; i < unstringToDo.length; i++) {
-    var newList = new ToDo(unstringToDo[i].title, unstringToDo[i].tasks, unstringToDo[i].uniqueId);
+    var newList = new ToDo(unstringToDo[i].title, unstringToDo[i].tasks, unstringToDo[i].uniqueId, unstringToDo[i].tasks.complete);
     allToDos.push(newList);
     displayToDo(newList);
   }
