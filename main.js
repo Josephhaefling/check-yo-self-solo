@@ -17,12 +17,13 @@ window.onload = function() {
 
 function btnClicked () {
   var target = event.target;
+  console.log(target);
   if (target.classList[0] === 'js-nav-btn') {
     addBtn(target);
   } else if (target.id === 'search-button'){
     console.log('search');
-  } else if (target.classList.value === 'toDo-check-box') {
-    getTaskIDs(target);
+  } else if (target.classList[0] === 'toDo-check-box') {
+    createNewToDoList(target);
   }
 }
 
@@ -50,34 +51,37 @@ function addBtn(target) {
 
 function makeListBtn(target) {
   if (target.id === 'make-list') {
-    createNewToDoList();
+    createNewToDoList(target);
   } else {
     deleteBtns(target);
   }
 }
 
-function deleteBtns(target) {
-  if (target.id === 'clear-all') {
-    console.log('clear');
-  } else if (target.classList[1] === 'small-image') {
-    // deleteTask(target);
+function deleteBtns() {
+  target = event.target
+  if (event.target.id === 'clear-all') {
+    console.log(event.target.id);
+  } else if (event.target.classList[1] === 'small-image') {
   }
 }
 
-function getTaskIDs(target) {
-  var taskList = allToDos.map(x => x.tasks);
-  var uniqueIDList = taskList.map(y => y[0].uniqueID);
-  for (var i = 0; i < uniqueIDList.length; i++){
-    if (target.id === `js-${uniqueIDList[i]}`) {
-      var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
-      taskList[i][indexOfTask].complete = true;
-      toggleCompleted(target, taskList[i][indexOfTask]);
-    }
-  }
-}
+// function getTaskIDs(target) {
+//   console.log('hi');
+//   var taskList = allToDos.map(x => x.tasks);
+//   var uniqueIDList = taskList.map(y => y[1].uniqueID);
+//   console.log(uniqueIDList);
+//   for (var i = 0; i < uniqueIDList.length; i++){
+//     if (target.id === `js-${uniqueIDList[i]}`) {
+//       var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
+//       taskList[i][indexOfTask].complete = true;
+//       toggleCompleted(target, taskList[i][indexOfTask]);
+//     }
+//   }
+// }
 
 function toggleCompleted(target, taskList) {
   var targetClass = document.querySelector('.toDo-check-box');
+  console.log(target.nextSibling);
   var text = target.nextSibling;
   var textNextSibling = text.nextSibling;
   if (target.complete === true && target.getAttribute('src') === 'assets/checkbox.svg') {
@@ -86,12 +90,9 @@ function toggleCompleted(target, taskList) {
   } else {
     textNextSibling.classList.toggle('change-text');
     target.src = 'assets/checkbox.svg';
-    console.log(taskList.complete);
     taskList.complete = false;
-    console.log(taskList.complete);
   }
     var updatedToDo = new ToDo(taskList.title, taskList.taskList, taskList.uniqueID);
-    console.log(allToDos);
     updatedToDo.updateStorage(allToDos);
 }
 
@@ -113,7 +114,7 @@ function addTask(taskObj, newTaskInput) {
   }
 }
 
-function deleteTask(target) {
+function deleteTask() {
   var parent = document.querySelector(`#${target.id}`);
   target.remove();
   parent.remove();
@@ -130,13 +131,18 @@ function disableBtn() {
   }
 }
 
-function createNewToDoList() {
+function createNewToDoList(target) {
   var todo = new ToDo(toDoListInput.value, taskList, Date.now());
-  todo.createToDoId();
-  clearTasks();
-  displayToDo(todo);
-  allToDos.push(todo);
+  console.log(target);
+  if(target.classList[0] === 'toDo-check-box'){
+    todo.updateTask(target);
+  } else {
+    todo.createToDoId();
+    clearTasks();
+    displayToDo(todo);
+    allToDos.push(todo);
   todo.saveToStorage(allToDos);
+  }
 }
 
 function clearTasks() {
@@ -151,11 +157,11 @@ function clearToDoInput() {
 }
 
 function displayToDo(newList) {
-  var rightSection = document.querySelector('#right-section');
+  // var rightSection = document.querySelector(`js-${newList.tasks[i].uniqueID}`);
   for (var i = 0; i < newList.tasks.length; i++) {
    rightSection.insertAdjacentHTML('beforeend',
   `<div id="new-card">
-  <h2>${newList.tasks[i].taskName}</h2>
+  <h2>${newList.title}</h2>
   <div id="js-${newList.tasks[i].uniqueID}" class="card-tasks"></div>
   <div id="footer">
     <div class="card-btn-container">
@@ -167,20 +173,19 @@ function displayToDo(newList) {
       <span class="card-btn-label">delete</span>
     </div>
   </div>`);
-  addTasksToCard(newList.tasks[i]);
+  addTasksToCard(newList, newList.tasks[i].uniqueID);
   clearToDoInput();
   }
 }
 
-function addTasksToCard (newList) {
-  var listOfTasks = document.querySelector(`#js-${newList.uniqueID}`);
-  // console.log(newList);
-  // for (var i = 0; i < newList.tasks.length; i++) {
+function addTasksToCard(newList, specifiedID) {
+  var listOfTasks = document.querySelector(`#js-${specifiedID}`);
+  for (var i = 0; i < newList.tasks.length; i++) {
     listOfTasks.insertAdjacentHTML('beforeend',
-  `<image id="js-${newList.uniqueID}" class="toDo-check-box" src="assets/checkbox.svg">
-    <span id="js-${newList.uniqueID}" class="change-text">${newList.taskName}</span>`);
+  `<image id="js-${newList.tasks[i].uniqueID}" class="toDo-check-box small-image" src="assets/checkbox.svg">
+    <span id="js-${newList.tasks[i].uniqueID}" class="change-text">${newList.tasks[i].taskName}</span>`);
   }
-// }
+}
 
 function retrieveSavedCards () {
   var unstringTasks = localStorage.getItem('tasks');
@@ -194,13 +199,3 @@ function retrieveSavedCards () {
     displayToDo(newList);
   }
 }
-
-// function determineBtn(target) {
-//   var btnList = ['createNewToDoList', 'createTask', 'clearAll'];
-//   for (i = 0; i < btnList.length; i++){
-//     if (target.id === btnList[i]) {
-//       console.log(`${btnList[i]}`);
-//       `${btnList[i]}()`;
-//     }
-//   }
-// }

@@ -1,5 +1,5 @@
 class ToDo {
-  constructor(title, taskList, uniqueId, completed) {
+  constructor(title, taskList, uniqueId, completed, target) {
     this.title = title;
     this.tasks = taskList;
     this.uniqueId = uniqueId;
@@ -18,9 +18,20 @@ class ToDo {
     var stringifyToDo = JSON.stringify(allToDos);
     localStorage.setItem('tasks', stringifyToDo);
   }
-  updateTask(newTask) {
-    // this.tasks.push(newTask);
+  updateTask(target) {
+      console.log(target);
+      var taskList = allToDos.map(x => x.tasks);
+      var uniqueIDList = taskList.map(y => y[0].uniqueID);
+      console.log(uniqueIDList);
+      for (var i = 0; i < uniqueIDList.length; i++){
+        if (target.id === `js-${uniqueIDList[i]}`) {
+          var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
+          taskList[i][indexOfTask].complete = true;
+          toggleCompleted(target, taskList[i][indexOfTask]);
+      }
+    }
   }
+
   createToDoId() {
     var id = new Date().getTime();
     this.id = id;
