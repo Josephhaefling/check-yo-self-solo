@@ -17,7 +17,6 @@ window.onload = function() {
 
 function btnClicked () {
   var target = event.target;
-  console.log(target);
   if (target.classList[0] === 'js-nav-btn') {
     addBtn(target);
   } else if (target.id === 'search-button'){
@@ -26,19 +25,6 @@ function btnClicked () {
     createNewToDoList(target);
   }
 }
-
-// function determineBtn(target) {
-//   if (target.id === 'add-btn') {
-//     createTaskObj();
-//     disableBtn();
-//   } else if (target.id === 'make-list') {
-//     createNewToDoList();
-//   } else if (target.id === 'clear-all') {
-//     console.log('clear');
-//   } else if (target.classList[1] === 'small-image') {
-//     deleteTask(target);
-//   }
-// }
 
 function addBtn(target) {
   if (target.id === 'add-btn') {
@@ -62,26 +48,12 @@ function deleteBtns() {
   if (event.target.id === 'clear-all') {
     console.log(event.target.id);
   } else if (event.target.classList[1] === 'small-image') {
+    return;
   }
 }
 
-// function getTaskIDs(target) {
-//   console.log('hi');
-//   var taskList = allToDos.map(x => x.tasks);
-//   var uniqueIDList = taskList.map(y => y[1].uniqueID);
-//   console.log(uniqueIDList);
-//   for (var i = 0; i < uniqueIDList.length; i++){
-//     if (target.id === `js-${uniqueIDList[i]}`) {
-//       var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
-//       taskList[i][indexOfTask].complete = true;
-//       toggleCompleted(target, taskList[i][indexOfTask]);
-//     }
-//   }
-// }
-
 function toggleCompleted(target, taskList) {
   var targetClass = document.querySelector('.toDo-check-box');
-  console.log(target.nextSibling);
   var text = target.nextSibling;
   var textNextSibling = text.nextSibling;
   if (target.complete === true && target.getAttribute('src') === 'assets/checkbox.svg') {
@@ -133,15 +105,14 @@ function disableBtn() {
 
 function createNewToDoList(target) {
   var todo = new ToDo(toDoListInput.value, taskList, Date.now());
-  console.log(target);
-  if(target.classList[0] === 'toDo-check-box'){
+  if(target.classList[0] === 'toDo-check-box') {
     todo.updateTask(target);
   } else {
     todo.createToDoId();
     clearTasks();
     displayToDo(todo);
     allToDos.push(todo);
-  todo.saveToStorage(allToDos);
+    todo.saveToStorage(allToDos);
   }
 }
 
@@ -157,32 +128,29 @@ function clearToDoInput() {
 }
 
 function displayToDo(newList) {
-  // var rightSection = document.querySelector(`js-${newList.tasks[i].uniqueID}`);
-  for (var i = 0; i < newList.tasks.length; i++) {
    rightSection.insertAdjacentHTML('beforeend',
-  `<div id="new-card">
-  <h2>${newList.title}</h2>
-  <div id="js-${newList.tasks[i].uniqueID}" class="card-tasks"></div>
-  <div id="footer">
-    <div class="card-btn-container">
-      <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
-      <span class="card-btn-label">urgent</span>
-    </div>
-    <div class="card-btn-container">
-      <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
-      <span class="card-btn-label">delete</span>
-    </div>
-  </div>`);
-  addTasksToCard(newList, newList.tasks[i].uniqueID);
+   `<div id="new-card">
+     <h2>${newList.title}</h2>
+     <div id="js-${newList.tasks.uniqueID}" class="card-tasks"></div>
+     <div id="footer">
+     <div class="card-btn-container">
+       <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
+       <span class="card-btn-label">urgent</span>
+     </div>
+     <div class="card-btn-container">
+       <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
+       <span class="card-btn-label">delete</span>
+     </div>
+   </div>`);
+  addTasksToCard(newList, newList.tasks.uniqueID);
   clearToDoInput();
-  }
 }
 
 function addTasksToCard(newList, specifiedID) {
   var listOfTasks = document.querySelector(`#js-${specifiedID}`);
   for (var i = 0; i < newList.tasks.length; i++) {
     listOfTasks.insertAdjacentHTML('beforeend',
-  `<image id="js-${newList.tasks[i].uniqueID}" class="toDo-check-box small-image" src="assets/checkbox.svg">
+   `<image id="js-${newList.tasks[i].uniqueID}" class="toDo-check-box small-image" src="assets/checkbox.svg">
     <span id="js-${newList.tasks[i].uniqueID}" class="change-text">${newList.tasks[i].taskName}</span>`);
   }
 }
@@ -190,10 +158,10 @@ function addTasksToCard(newList, specifiedID) {
 function retrieveSavedCards () {
   var unstringTasks = localStorage.getItem('tasks');
   var unstringToDo = JSON.parse(unstringTasks);
-  if(unstringToDo === null){
+  if (unstringToDo === null) {
     return;
   }
-  for(var i = 0; i < unstringToDo.length; i++) {
+  for (var i = 0; i < unstringToDo.length; i++) {
     var newList = new ToDo(unstringToDo[i].title, unstringToDo[i].tasks, unstringToDo[i].uniqueId, unstringToDo[i].tasks.complete);
     allToDos.push(newList);
     displayToDo(newList);
