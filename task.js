@@ -4,6 +4,7 @@ class Task {
     this.complete = false;
     this.taskName = taskName;
   }
+
   createTaskId() {
     var id = new Date().getTime();
     this.uniqueID = id;
