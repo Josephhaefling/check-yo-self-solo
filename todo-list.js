@@ -5,6 +5,7 @@ class ToDo {
     this.uniqueId = uniqueId;
     this.urgent = false;
   }
+
   saveToStorage(allToDos) {
     var stringifyToDo = JSON.stringify(allToDos);
     localStorage.setItem('tasks', stringifyToDo);
@@ -14,15 +15,17 @@ class ToDo {
     localStorage.getItem('tasks');
     var unstringToDo = JSON.parse('tasks');
   }
+
   updateStorage(allToDos) {
     var stringifyToDo = JSON.stringify(allToDos);
     localStorage.setItem('tasks', stringifyToDo);
   }
+
   updateTask(target) {
       console.log(target);
       var taskList = allToDos.map(x => x.tasks);
       var uniqueIDList = taskList.map(y => y[0].uniqueID);
-      console.log(uniqueIDList);
+      // console.log(taskList[0].);
       for (var i = 0; i < uniqueIDList.length; i++){
         if (target.id === `js-${uniqueIDList[i]}`) {
           var indexOfTask = uniqueIDList.indexOf(uniqueIDList[i]);
@@ -35,5 +38,5 @@ class ToDo {
   createToDoId() {
     var id = new Date().getTime();
     this.id = id;
-  };
+  }
 }
