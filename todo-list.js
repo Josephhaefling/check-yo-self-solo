@@ -34,9 +34,4 @@ class ToDo {
       }
     }
   }
-
-  createToDoId() {
-    var id = new Date().getTime();
-    this.id = id;
-  }
 }
