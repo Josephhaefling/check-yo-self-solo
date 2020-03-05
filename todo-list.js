@@ -1,8 +1,8 @@
 class ToDo {
-  constructor(title, taskList, uniqueId, completed, target) {
+  constructor(uniqueID, title, taskList) {
+    this.uniqueID = uniqueID;
     this.title = title;
     this.tasks = taskList;
-    this.uniqueId = uniqueId;
     this.urgent = false;
   }
 

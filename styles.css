@@ -54,10 +54,10 @@ h1 {
 nav {
   align-items: center;
   background-color: #587a8a;
-  border: solid 2px black;
+  border: solid 2px 587a8a;
   display: flex;
   flex-direction: column;
-  height: 103%;
+  height: 100%;
   justify-content: center;
   justify-content: flex-start;
   width: 25%;
@@ -71,7 +71,7 @@ nav {
   width: 90%;
 }
 
-.small-image {
+#small-image {
   cursor: pointer;
   height: 15px;
   width:15px;
@@ -150,6 +150,7 @@ main {
 #right-section {
   background-color: #f3f6f7;
   width: 75%;
+  height: 100%;
 }
 
 #new-card {
@@ -185,7 +186,7 @@ h2  {
   color: black;
   display: inline-block;
   height: 15%;
-  width: 88%;
+  width: 95%;
 }
 
 span {
@@ -197,14 +198,14 @@ span {
 
 .toDo-check-box {
   cursor: pointer;
-  height: 10%;
-  width: 10%;
+  height: 5%;
+  width: 3%;
 }
 
 .toDo-check-box-active {
   cursor: pointer;
-  height: 10%;
-  width: 10%;
+  height: 5%;
+  width: 3%;
 }
 
 #footer {
