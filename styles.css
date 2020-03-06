@@ -153,7 +153,7 @@ main {
   height: 100%;
 }
 
-#new-card {
+.new-card {
   background-color: #ffffff;
   border: 2px solid #c7d3d8;
   display: inline-block;
@@ -186,7 +186,7 @@ h2  {
   color: black;
   display: inline-block;
   height: 15%;
-  width: 95%;
+  width: 91%;
 }
 
 span {
@@ -198,8 +198,8 @@ span {
 
 .toDo-check-box {
   cursor: pointer;
-  height: 5%;
-  width: 3%;
+  height: 10%;
+  width: 7%;
 }
 
 .toDo-check-box-active {
@@ -214,8 +214,8 @@ span {
 }
 
 .card-btn {
-  height: 10%;
-  width: 10%;
+  height: 15%;
+  width: 15%;
   cursor: pointer;
 }
 
