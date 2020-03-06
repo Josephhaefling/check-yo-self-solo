@@ -11,7 +11,7 @@ class ToDo {
     localStorage.setItem('tasks', stringifyToDo);
   }
 
-  deleteFromStorage(deletedTask) {
+  deleteFromStorage(deleteToDo) {
     localStorage.getItem('tasks');
     var unstringToDo = JSON.parse('tasks');
   }
