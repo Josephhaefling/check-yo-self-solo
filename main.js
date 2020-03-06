@@ -10,7 +10,8 @@ var allToDos = [];
 
 
 navListener.addEventListener('click', navBtnClicked);
-rightSection.addEventListener('click', taskCompleted);
+rightSection.addEventListener('click', determineCardBtnClicked);
+
 
 window.onload = function() {
   retrieveSavedCards();
@@ -78,12 +79,12 @@ function clearTaskDOM() {
 
 function displayToDo(newToDo) {
    rightSection.insertAdjacentHTML('beforeend',
-   `<div id=js${newToDo.uniqueID}>
+   `<div id=js${newToDo.uniqueID} class="new-card">
      <h2>${newToDo.title}</h2>
      <div id="js-${newToDo.uniqueID}" class="card-tasks"></div>
      <div id="footer">
      <div class="card-btn-container" id="js-${newToDo.uniqueID}">
-       <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
+       <image type="button" name="button" class="urgent-btn card-btn" id="js-${newToDo.uniqueID}" src="assets/urgent.svg">
        <span class="card-btn-label">urgent</span>
      </div>
      <div class="card-btn-container" id="js-${newToDo.uniqueID}">
@@ -133,8 +134,18 @@ function retrieveSavedCards () {
   }
 }
 
-function taskCompleted() {
-  target = event.target
+function determineCardBtnClicked() {
+  target = event.target;
+  if (target.classList[0] === 'delete-btn') {
+    locateToDoDelete(target);
+  } else if (target.classList[0] === 'urgent-btn') {
+    makeUrgent()
+  } else if (target.classList[0] === 'toDo-check-box') {
+    taskCompleted(target)  }
+}
+
+function taskCompleted(target) {
+  locateToDoList(target);
   if (target.getAttribute('src') === 'assets/checkbox.svg') {
     target.src = 'assets/checkbox-active.svg';
     target.nextSibling.nextSibling.style.color = 'grey';
@@ -142,16 +153,12 @@ function taskCompleted() {
     target.src = 'assets/checkbox.svg';
     target.nextSibling.nextSibling.style.color = 'black';
   }
-  locateToDoDelete();
-  locateToDoList(target);
 }
 
-function locateToDoDelete() {
-  if(target.classList[0] === 'delete-btn') {
-    for (var i = 0; i < allToDos.length; i++){
+function locateToDoDelete(target) {
+    for (var i = 0; i < allToDos.length; i++) {
       if(`js-${allToDos[i].uniqueID}` === target.id) {
         deleteToDoList(allToDos[i].tasks, allToDos[i]);
-      }
     }
   }
 }
@@ -196,5 +203,14 @@ function persistCheckOff(element) {
   } else {
     checkedOff.src = 'assets/checkbox.svg';
     checkedOff.nextSibling.nextSibling.style.color = 'black';
+  }
+}
+
+function makeUrgent() {
+  if (target.getAttribute('src') === 'assets/urgent.svg') {
+    target.src = 'assets/urgent-active.svg';
+    persistUrgent(target);
+  } else if (target.getAttribute('src') === 'assets/urgent-active.svg') {
+    target.src = 'assets/urgent.svg';
   }
 }
