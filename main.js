@@ -10,7 +10,6 @@ var allToDos = [];
 
 
 navListener.addEventListener('click', navBtnClicked);
-// mainHeader.addEventListener('click', btnClicked);
 rightSection.addEventListener('click', taskCompleted);
 
 window.onload = function() {
@@ -35,7 +34,6 @@ function addRemoveBtn(target) {
   if (target.id === 'add-btn') {
     addTaskToDom();
   } else if (target.id === 'small-image') {
-    console.log('');
     deleteTaskNav(target);
   }
 }
@@ -84,12 +82,12 @@ function displayToDo(newToDo) {
      <h2>${newToDo.title}</h2>
      <div id="js-${newToDo.uniqueID}" class="card-tasks"></div>
      <div id="footer">
-     <div class="card-btn-container">
+     <div class="card-btn-container" id="js-${newToDo.uniqueID}">
        <image type="button" name="button" class="card-btn" id="urgent-btn" src="assets/urgent.svg">
        <span class="card-btn-label">urgent</span>
      </div>
-     <div class="card-btn-container">
-       <image type="button" name="button" class="card-btn" id="delete-btn" src="assets/delete.svg">
+     <div class="card-btn-container" id="js-${newToDo.uniqueID}">
+       <image type="button" name="button" class="delete-btn card-btn" id="js-${newToDo.uniqueID}" src="assets/delete.svg">
        <span class="card-btn-label">delete</span>
      </div>
    </div>`);
@@ -140,11 +138,39 @@ function taskCompleted() {
   if (target.getAttribute('src') === 'assets/checkbox.svg') {
     target.src = 'assets/checkbox-active.svg';
     target.nextSibling.nextSibling.style.color = 'grey';
-    locateToDoList(target);
   } else if (target.getAttribute('src') === 'assets/checkbox-active.svg') {
     target.src = 'assets/checkbox.svg';
     target.nextSibling.nextSibling.style.color = 'black';
-    locateToDoList(target);
+  }
+  locateToDoDelete();
+  locateToDoList(target);
+}
+
+function locateToDoDelete() {
+  if(target.classList[0] === 'delete-btn') {
+    for (var i = 0; i < allToDos.length; i++){
+      if(`js-${allToDos[i].uniqueID}` === target.id) {
+        deleteToDoList(allToDos[i].tasks, allToDos[i]);
+      }
+    }
+  }
+}
+
+function deleteToDoList(taskList, toDoList) {
+  var completedTasks = []
+  for (i = 0; i < taskList.length; i++) {
+    if(taskList[i].complete)
+      completedTasks.push(taskList[i]);
+  }
+  updateDom(taskList, toDoList, completedTasks);
+}
+
+function updateDom(taskList, toDoList, completedTasks) {
+  if(completedTasks.length === taskList.length) {
+    var removeMe = allToDos.indexOf(toDoList);
+      allToDos.splice(removeMe, 1);
+      toDoList.deleteFromStorage(allToDos);
+      window.location.reload();
   }
 }
 

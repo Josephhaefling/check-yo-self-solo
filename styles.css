@@ -215,7 +215,8 @@ span {
 
 .card-btn {
   height: 10%;
-  width: 10%
+  width: 10%;
+  cursor: pointer;
 }
 
 .card-btn-container {

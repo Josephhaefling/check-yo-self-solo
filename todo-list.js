@@ -11,9 +11,10 @@ class ToDo {
     localStorage.setItem('tasks', stringifyToDo);
   }
 
-  deleteFromStorage(deletedTask) {
-    localStorage.getItem('tasks');
-    var unstringToDo = JSON.parse('tasks');
+  deleteFromStorage(allToDos) {
+    console.log('hi');
+    var stringifyToDo = JSON.stringify(allToDos);
+    localStorage.setItem('tasks', stringifyToDo);
   }
 
   updateStorage(toDoList) {
