@@ -11,10 +11,11 @@ var allToDos = [];
 
 navListener.addEventListener('click', navBtnClicked);
 // mainHeader.addEventListener('click', btnClicked);
-// rightSection.addEventListener('click', btnClicked);
+rightSection.addEventListener('click', taskCompleted);
 
 window.onload = function() {
   retrieveSavedCards();
+  checkIfComplete();
 };
 
 
@@ -60,8 +61,7 @@ function deleteTaskNav(target) {
 }
 
 function createTaskObj(newTaskTitle) {
-  var task = new Task(newTaskTitle);
-    task.createTaskId();
+  var task = new Task(Date.now(), newTaskTitle);
     allTasksList.push(task);
 }
 
@@ -69,7 +69,6 @@ function createNewToDoList() {
   var newToDo = new ToDo(Date.now(), toDoListInput.value, allTasksList);
     clearInputs();
     allToDos.push(newToDo);
-    console.log(allToDos);
     newToDo.saveToStorage(allToDos);
     displayToDo(newToDo);
 
@@ -99,7 +98,6 @@ function displayToDo(newToDo) {
 
 function addTasksToCard(newToDo) {
   var taskList = document.querySelector(`#js-${newToDo.uniqueID}`);
-  console.log(taskList);
   for (var i = 0; i < newToDo.tasks.length; i++) {
     taskList.insertAdjacentHTML('beforeend',
    `<image id="js-${newToDo.tasks[i].uniqueID}" class="toDo-check-box small-image" src="assets/checkbox.svg">
@@ -119,6 +117,7 @@ function disableClearAllBtn(target) {
   if (toDoListInput.value && newTaskSpace.childNodes.length > 0) {
     clearInputs();
     clearTaskDOM();
+    allTasksList = [];
   }
 }
 
@@ -127,8 +126,8 @@ function retrieveSavedCards () {
   var unstringToDo = JSON.parse(unstringTasks);
   if (unstringToDo){
     for (var i = 0; i < unstringToDo.length; i++) {
-      var newList = new ToDo(unstringToDo[i].title, unstringToDo[i].tasks, unstringToDo[i].uniqueId, unstringToDo[i].tasks.complete);
-      allToDos.push(unstringToDo[i]);
+      var newList = new ToDo(unstringToDo[i].uniqueID, unstringToDo[i].title, unstringToDo[i].tasks);
+      allToDos.push(newList);
       displayToDo(unstringToDo[i]);
     }
   } else {
@@ -136,7 +135,63 @@ function retrieveSavedCards () {
   }
 }
 
-// function displayRetrievedCards() {}
+function taskCompleted() {
+  target = event.target
+  if (target.getAttribute('src') === 'assets/checkbox.svg') {
+    target.src = 'assets/checkbox-active.svg';
+    target.nextSibling.nextSibling.style.color = 'grey';
+    locateToDoList(target);
+  } else if (target.getAttribute('src') === 'assets/checkbox-active.svg') {
+    target.src = 'assets/checkbox.svg';
+    target.nextSibling.nextSibling.style.color = 'black';
+    locateToDoList(target);
+  }
+}
+
+function locateToDoList(target) {
+  for (var i = 0; i < allToDos.length; i++) {
+    if (target.parentNode.id === `js-${allToDos[i].uniqueID}`) {
+      allToDos[i].updateTask(allToDos[i], target);
+    }
+  }
+}
+
+function checkIfComplete() {
+  for (var i = 0; i < allToDos.length; i++) {
+  allToDos[i].tasks.forEach(element => persistCheckOff(element));
+  }
+}
+
+function persistCheckOff(element) {
+  var checkedOff = document.querySelector(`#js-${element.uniqueID}`);
+  if (element.complete === true) {
+    checkedOff.src = 'assets/checkbox-active.svg';
+    checkedOff.nextSibling.nextSibling.style.color = 'grey';
+  } else {
+    checkedOff.src = 'assets/checkbox.svg';
+    checkedOff.nextSibling.nextSibling.style.color = 'black';
+  }
+}
+// function uncrossOffTask()  {
+//   if (target.getAttribute('src') === 'assets/checkbox-active.svg') {
+//   console.log(target.getAttribute('src'));
+//   }
+// }
+
+// function toggleCompleted(target, taskList) {
+//   // var targetClass = document.querySelector('.toDo-check-box');
+//   // var textNextSibling = text.nextSibling;
+//   if (target.complete === true && ) {
+//     textNextSibling.classList.toggle('change-text');
+//   }  {
+//     textNextSibling.classList.toggle('change-text');
+//     target.src = 'assets/checkbox.svg';
+//     taskList.complete = false;
+//   }
+//     var updatedToDo = new ToDo(taskList.title, taskList.taskList, taskList.uniqueID);
+//     updatedToDo.updateStorage(allToDos);
+// }
+
 
 
 // keep us
@@ -184,21 +239,7 @@ function retrieveSavedCards () {
 //   }
 // }
 //
-// function toggleCompleted(target, taskList) {
-//   var targetClass = document.querySelector('.toDo-check-box');
-//   var text = target.nextSibling;
-//   var textNextSibling = text.nextSibling;
-//   if (target.complete === true && target.getAttribute('src') === 'assets/checkbox.svg') {
-//     target.src = 'assets/checkbox-active.svg';
-//     textNextSibling.classList.toggle('change-text');
-//   } else {
-//     textNextSibling.classList.toggle('change-text');
-//     target.src = 'assets/checkbox.svg';
-//     taskList.complete = false;
-//   }
-//     var updatedToDo = new ToDo(taskList.title, taskList.taskList, taskList.uniqueID);
-//     updatedToDo.updateStorage(allToDos);
-// }
+
 //
 
 //
