@@ -161,15 +161,15 @@ function deleteToDoList(taskList, toDoList) {
   for (i = 0; i < taskList.length; i++) {
     if(taskList[i].complete)
       completedTasks.push(taskList[i]);
-      updateDom(taskList, toDoList, completedTasks);
   }
+  updateDom(taskList, toDoList, completedTasks);
 }
 
 function updateDom(taskList, toDoList, completedTasks) {
   if(completedTasks.length === taskList.length) {
     var removeMe = allToDos.indexOf(toDoList);
       allToDos.splice(removeMe, 1);
-      toDoList.updateStorage();
+      toDoList.deleteFromStorage(allToDos);
       window.location.reload();
   }
 }
